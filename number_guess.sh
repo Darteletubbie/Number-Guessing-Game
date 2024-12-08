@@ -21,7 +21,6 @@ fi
 
 # generate secret number
 SECRET_NUMBER=$(( RANDOM % 1000 + 1))
-echo -e "\n$SECRET_NUMBER"
 # count guessing time
 NUMBER_OF_GUESS=0
 
