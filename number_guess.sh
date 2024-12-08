@@ -28,14 +28,11 @@ GUESS_NUMBER
 
 # generate secret number
 GUESS_NUMBER(){
-  SECRET_NUMBER=$(( RANDOM % 1000 + 1))
+SECRET_NUMBER=$(( RANDOM % 1000 + 1))
 
-if [[ ! GUESS_INPUT =~ ^[0-9]+$ ]]
+if [[ GUESS_INPUT =~ ^[0-9]+$ ]]
 then
-# not an integer
-echo -e "\nThat is not an integer, guess again:"
-READ_NUMBER
-else
+
   if [[ $GUESS_INPUT < $SECRET_NUMBER ]]
   then
   # secret number lower than guess number
@@ -51,6 +48,10 @@ else
   echo -e "\nYou guessed it in <number_of_guesses> tries. The secret number was $SECRET_NUMBER. Nice job!"
   exist
   fi
+else
+# not an integer
+echo -e "\nThat is not an integer, guess again:"
+READ_NUMBER
 fi
 }
 
