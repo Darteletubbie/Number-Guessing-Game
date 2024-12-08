@@ -20,10 +20,6 @@ BEST_GAME=$($PSQL "SELECT best_game FROM info WHERE username = '$USERNAME'")
 echo -e "\nWelcome back, $USERNAME! You have played $GAME_PLAYED games, and your best game took $BEST_GAME guesses."
 fi
 
-echo -e "\nGuess the secret number between 1 and 1000:"
-READ_NUMBER
-SECRET_NUMBER=$(( RANDOM % 1000 + 1))
-
 READ_NUMBER(){
 # read user guess input
 read GUESS_INPUT
@@ -56,3 +52,7 @@ echo -e "\nThat is not an integer, guess again:"
 READ_NUMBER
 fi
 }
+
+echo -e "\nGuess the secret number between 1 and 1000:"
+READ_NUMBER
+SECRET_NUMBER=$(( RANDOM % 1000 + 1))
