@@ -14,11 +14,9 @@ echo -e "\nWelcome, $NAME! It looks like this is your first time here."
 else
 # exist user
 # get info
-GAMES_PLAYED=$($PSQL "SELECT count(username) FROM info WHERE username = '$USERNAME'")
-BEST_GAME=$($PSQL "SELECT min(number_of_guess) FROM info WHERE username = '$USERNAME'")
-echo -e "$GAMES_PLAYED"
-echo -e "$BEST_GAME"
-echo -e "\nWelcome back, $USERNAME! You have played $GAME_PLAYED games, and your best game took $BEST_GAME guesses."
+GAMES_PLAYED=$($PSQL "SELECT count(username) FROM info WHERE username = '$NAME'")
+BEST_GAME=$($PSQL "SELECT min(number_of_guess) FROM info WHERE username = '$NAME'")
+echo -e "\nWelcome back, $NAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
 fi
 
 # generate secret number
