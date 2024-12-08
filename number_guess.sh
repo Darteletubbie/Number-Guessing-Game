@@ -10,13 +10,14 @@ if [[ -z $USERNAME ]]
 then
 # new user
 echo -e "\nWelcome, $NAME! It looks like this is your first time here."
-# insert into database
-INSERT_USERNAME_RESULT=$($PSQL "INSERT INTO info(username) VALUES('$NAME')")
+
 else
 # exist user
 # get info
-GAMES_PLAYED=$($PSQL "SELECT games_played FROM info WHERE username = '$USERNAME'")
-BEST_GAME=$($PSQL "SELECT best_game FROM info WHERE username = '$USERNAME'")
+GAMES_PLAYED=$($PSQL "SELECT count(username) FROM info WHERE username = '$USERNAME'")
+BEST_GAME=$($PSQL "SELECT min(number_of_guess) FROM info WHERE username = '$USERNAME'")
+echo -e "$GAMES_PLAYED"
+echo -e "$BEST_GAME"
 echo -e "\nWelcome back, $USERNAME! You have played $GAME_PLAYED games, and your best game took $BEST_GAME guesses."
 fi
 
@@ -36,17 +37,19 @@ read GUESS_INPUT
 if [[ $GUESS_INPUT =~ ^[0-9]+$ ]]
 then
 (( NUMBER_OF_GUESS++ ))
-  if (( GUESS_INPUT < SECRET_NUMBER ))
+  if (( GUESS_INPUT > SECRET_NUMBER ))
   then
   # secret number lower than guess number
   echo -e "\nIt's lower than that, guess again:"
-  elif (( GUESS_INPUT > SECRET_NUMBER ))
+  elif (( GUESS_INPUT < SECRET_NUMBER ))
   then
   # secret number higher than guess number
   echo -e "\nIt's higher than that, guess again:"
   else
   # secret number guessed
-  echo -e "\nYou guessed it in <number_of_guesses> tries. The secret number was $SECRET_NUMBER. Nice job!"
+  echo -e "\nYou guessed it in $NUMBER_OF_GUESS tries. The secret number was $SECRET_NUMBER. Nice job!"
+  # insert into database
+  GAME_INSERT_RESULT=$($PSQL "INSERT INTO info(username, number_of_guess) VALUES('$NAME', $NUMBER_OF_GUESS)")
   exit
   fi
 else
