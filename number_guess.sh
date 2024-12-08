@@ -21,8 +21,8 @@ echo -e "\nWelcome back, $USERNAME! You have played $GAME_PLAYED games, and your
 fi
 
 READ_NUMBER(){
-# read user guess input
 echo -e "\nGuess the secret number between 1 and 1000:"
+# read user guess input
 read GUESS_INPUT
 GUESS_NUMBER
 }
@@ -38,10 +38,12 @@ echo -e "\nThat is not an integer, guess again:"
 read GUESS_INPUT
 else
   if [[ $GUESS_INPUT < $SECRET_NUMBER ]]
+  then
   # secret number lower than guess number
   echo -e "\nIt's lower than that, guess again:"
   READ_NUMBER
   elif [[ $GUESS_INPUT > $SECRET_NUMBER ]]
+  then
   # secret number higher than guess number
   echo -e "\nIt's higher than that, guess again:"
   READ_NUMBER
@@ -53,4 +55,4 @@ else
 fi
 }
 
-READ_NUMBER
+$READ_NUMBER
