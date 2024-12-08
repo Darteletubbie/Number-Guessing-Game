@@ -22,6 +22,7 @@ fi
 
 # generate secret number
 SECRET_NUMBER=$(( RANDOM % 1000 + 1))
+echo -e "\n$SECRET_NUMBER"
 # count guessing time
 NUMBER_OF_GUESS=0
 
@@ -51,6 +52,5 @@ then
 else
 # not an integer
 echo -e "\nThat is not an integer, guess again:"
-READ_NUMBER
 fi
 done
